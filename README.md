@@ -32,19 +32,19 @@ Genautoo is two things:
 
 Just follow the steps:
 
-    # create your config file 
+- create your config file 
     
-    # run (as root, sorry):
+- run (as root, sorry):
 
     ./genautoo.sh -a amd64 -c <path to your config file> -o my_custom_install.iso
 
-    # burn the iso/dd it on a usb stick
+- burn the iso/dd it on a usb stick
 
-    # boot the shit
+- boot the shit
 
-    # take a (long) coffee (several in fact)
+- take a (long) coffee (several in fact)
 
-    # restart your computer (don't forget to remove the install media) and VOILA!
+- restart your computer (don't forget to remove the install media) and VOILA!
 
 ## Okay, but how I create the config file?
 
@@ -53,27 +53,27 @@ Just use vim :)
 Humm, that's not helping? okay. Creating the config file is simple, it as several sections:
 
     [global]
-    \#some global parameters
+    #some global parameters
 
-    \#mirror="http://mirror.ovh.net/gentoo-distfiles/"
-    \#proxy="http://myproxy.example.net:8080"
-    parallele\_emerge="-j4"
-    root\_password="changeme"
+    #mirror="http://mirror.ovh.net/gentoo-distfiles/"
+    #proxy="http://myproxy.example.net:8080"
+    parallele_emerge="-j4"
+    root_password="changeme"
 
     [network_install]
-    \#network configuration during the installation
+    #network configuration during the installation
     eth0 dhcp
-    \#eth1 static 192.168.42.100/24
-    \#route default gw 192.168.42.254
-    \#dns 8.8.8.8
+    #eth1 static 192.168.42.100/24
+    #route default gw 192.168.42.254
+    #dns 8.8.8.8
 
     [network]
-    \#network configuration of the installed system
+    #network configuration of the installed system
 
     [partitionning]
-    \#partitions description
+    #partitions description
 
-    \#DISK     SIZE     FS          MOUNT_POINT
+    #DISK     SIZE     FS          MOUNT_POINT
     /dev/sda   120M     ext4        /boot
     /dev/sda   1G       reiserfs    /
     /dev/sda   5G       ext4        /home
@@ -82,14 +82,14 @@ Humm, that's not helping? okay. Creating the config file is simple, it as severa
     /dev/sda   ALL      ext4        /var
 
     [make.conf]
-    \#lines ADDED to the make.conf
+    #lines ADDED to the make.conf
 
     MAKEOPTS="-j8"
     ACCEPT_LICENSE="*"
     LINGUAS="en fr"
 
     [packages]
-    \#list of the packages to install
+    #list of the packages to install
 
     net-misc/dhcpcd
     app-editors/vim
@@ -97,31 +97,31 @@ Humm, that's not helping? okay. Creating the config file is simple, it as severa
     sys-kernel/gentoo-sources
 
     [pre_setup]
-    \#script executed before anything has started
+    #script executed before anything has started
 
     echo "hello"
 
     [pre_install_nochroot]
-    \#shell script executed just before the chrooting
+    #shell script executed just before the chrooting
 
     echo "I"
 
     [pre_install_chroot]
-    \#shell script executed just after the chrooting
+    #shell script executed just after the chrooting
 
     echo "am"
 
     [post_install_chroot]
-    \#shell script executed after the installation inside the chroot
+    #shell script executed after the installation inside the chroot
 
     echo "genautoo"
 
     [post_install_nochroot]
-    \#shell script executed after the installation outside the chroot
+    #shell script executed after the installation outside the chroot
 
     echo "installer"
 
-Any way, there are some examples in example\_config/ directory.
+Any way, there are some examples in examples  directory.
 
 ## How does the installer work?
 
