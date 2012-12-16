@@ -1,7 +1,7 @@
 genautoo
 ========
 
-# Genautoo: the automated installer for gentoo
+# Genautoo: an automated installer for gentoo
 
 The goal of Genautoo is to install automatically Gentoo/Linux by customizing a single file.
 
