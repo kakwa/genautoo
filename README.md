@@ -5,7 +5,7 @@ genautoo
 
 The goal of Genautoo is to install automatically Gentoo/Linux by customizing a single file.
 
-## Why Gentautoo?
+## Why Genautoo?
 
 I'm not a big fan of redhat/fedora/centos but there is one thing I like in this environnement: the kickstart files.
 One simple file permitting you to easily install and reinstall and rereinstall your system as you want.

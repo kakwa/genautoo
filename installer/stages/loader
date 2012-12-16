@@ -1,0 +1,13 @@
+#we load the common libs
+for i in `ls ../lib/common/*.sh`
+do
+    . $i
+done
+
+#we load the arch specific libs
+for i in `ls ../lib/arch/*.sh`
+do  
+    . $i
+done
+
+. ../conf/global.cfg
