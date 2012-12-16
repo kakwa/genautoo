@@ -24,11 +24,11 @@ Genautoo is a solution for these situations.
 
 Genautoo is two things:
 
-    # A script generating a custom install iso for gentoo: genautoo.sh
+- A script generating a custom install iso for gentoo: genautoo.sh
 
-    # An installer: installer/
+- An installer: installer/
 
-## How I use it?
+## How do I use it?
 
 Just follow the steps:
 
@@ -46,11 +46,11 @@ Just follow the steps:
 
 - restart your computer (don't forget to remove the install media) and VOILA!
 
-## Okay, but how I create the config file?
+## Okay, but how do I create the config file?
 
 Just use vim :) 
 
-Humm, that's not helping? okay. Creating the config file is simple, it as several sections:
+Humm, that's not helping? okay. Creating the config file is simple, here is a simple example:
 
     [global]
     #some global parameters
@@ -121,7 +121,7 @@ Humm, that's not helping? okay. Creating the config file is simple, it as severa
 
     echo "installer"
 
-Any way, there are some examples in examples  directory.
+Any way, there are some examples in the examples directory.
 
 ## How does the installer work?
 
@@ -135,7 +135,7 @@ Just take a look at the help:
 
     ./genautoo.sh -h
 
-Without optionnal arguments, it takes the installer, the config file, it downloads the lattest debian (hehehe) businesscard iso of the specified arch, and it build a custom iso
+Without optionnal arguments, it takes the installer, the config file, it downloads the lattest debian (hehehe) businesscard iso of the specified arch, and it builds a custom iso
 
 More explainations coming soon...
 
