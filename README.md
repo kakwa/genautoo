@@ -26,7 +26,7 @@ Genautoo is two things:
 
 - A script generating a custom install iso for gentoo: genautoo.sh
 
-- An installer: installer/
+- An installer: installer/install.sh (and it's lib)
 
 ## How do I use it?
 
@@ -50,7 +50,7 @@ Just follow the steps:
 
 Just use vim :) 
 
-Humm, that's not helping? okay. Creating the config file is simple, here is a simple example:
+Humm, that's not helping? Okay. Creating the config file is simple, here is a simple example:
 
     [global]
     #some global parameters
@@ -121,13 +121,28 @@ Humm, that's not helping? okay. Creating the config file is simple, here is a si
 
     echo "installer"
 
+The order of the section doesn't matter, and you can split a section, for example:
+
+    [global]
+    #some global parameters
+
+   [partitionning]
+    #partitions description
+
+    #DISK     SIZE     FS          MOUNT_POINT
+    /dev/sda   120M     ext4        /boot
+    /dev/sda   1G       reiserfs    /
+
+    [global]
+    #rest of the global parameters
+
 Any way, there are some examples in the examples directory.
 
 ## How does the installer work?
 
 It's simply a bunch of bourne shell scripts that use the config file to do what they have to do.
 
-More explaination coming soon...
+More explainations coming soon...
 
 ## How does genautoo.sh work?
 
