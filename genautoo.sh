@@ -185,8 +185,13 @@ adding_install_scritps(){
     echo "/installer/install.sh" >>S69gentoo_install
     chmod 755 S69gentoo_install
     rm -f S70menu
-    #echo "sleep 100000" >sbin/debian-installer
     cd -
+}
+
+copy(){
+    if ! [ -z "$ADDITIONNAL_CONTENT" ]
+    then rsync -a $ADDITIONNAL_CONTENT/ $tmp_new_initrd_dir/
+    fi
 }
 
 create_new_initrd(){
@@ -196,6 +201,7 @@ create_new_initrd(){
     cd -
     mv $tmp_garbage_dir/initrd.gz $tmp_new_initrd_dir_PATH
 }
+
 
 build_new_iso(){
     common_print_message "making the new iso"
