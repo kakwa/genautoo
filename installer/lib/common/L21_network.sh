@@ -6,6 +6,6 @@ network_set_hostname(){
     fi
 }
 
-network_configure_interface(){
-
-}
+#network_configure_interface(){
+#local input=$1
+#}
