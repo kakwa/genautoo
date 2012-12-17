@@ -10,11 +10,11 @@ The goal of Genautoo is to install automatically Gentoo/Linux by customizing a s
 I'm not a big fan of redhat/fedora/centos but there is one thing I like in this environnement: the kickstart files.
 One simple file permitting you to easily install and reinstall and rereinstall your system as you want.
 
-Installing Gentoo is fun, but once you've done it several times, it doesn't learn you anything anymore.
-It's a time consumming process, but for those who like the distro, it remains a necessary step. 
+Installing Gentoo is fun, but once you've done it several times, it doesn't learn you anything.
+It's just a time consuming process, but for those who like the distro, it remains a necessary step. 
 
 In some cases, you may want to reinstall from scratch regularly. For example if you maintain some packages,
-it's a crude way to check that your ebuilds still work (since gentoo is a rolling release, breakages could happen).
+it's a crude way to check that your ebuilds still work (since gentoo is a rolling release, your ebuilds could easily break).
 
 In other cases, you may want to install identical Gentoos on several computers.
 
@@ -26,7 +26,7 @@ Genautoo is two things:
 
 - A script generating a custom install iso for gentoo: genautoo.sh
 
-- An installer: installer/install.sh (and it's lib)
+- An installer: installer/install.sh (and its libs)
 
 ## How do I use it?
 
@@ -142,7 +142,7 @@ Any way, there are some examples in the examples directory.
 
 It's simply a bunch of bourne shell scripts that use the config file to do what they have to do.
 
-More explainations coming soon...
+More explanations coming soon...
 
 ## How does genautoo.sh work?
 
@@ -150,7 +150,7 @@ Just take a look at the help:
 
     ./genautoo.sh -h
 
-Without optionnal arguments, it takes the installer, the config file, it downloads the lattest debian (hehehe) businesscard iso of the specified arch, and it builds a custom iso
+Without optional arguments, it takes the installer, the config file, it downloads the latest debian (hehehe) businesscard iso of the specified arch, and it builds a custom iso
 
-More explainations coming soon...
+More explanations coming soon...
 
