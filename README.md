@@ -126,7 +126,7 @@ The order of the section doesn't matter, and you can split a section, for exampl
     [global]
     #some global parameters
 
-   [partitionning]
+    [partitionning]
     #partitions description
 
     #DISK     SIZE     FS          MOUNT_POINT
