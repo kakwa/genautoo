@@ -43,6 +43,7 @@ arch_bootloader_install(){
 
         
     local grub_disk=`arch_bootloader_get_grub_boot_disk $boot_partition`
+    local boot_disk=`arch_bootloader_get_disk `
     local grub_number=`arch_get_grub_number $boot_partition`
 
 
