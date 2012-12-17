@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Genautoo by kakwa</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Genautoo</h1>
+          <h2>Genautoo: an automated installer for gentoo</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/kakwa/genautoo/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/kakwa/genautoo/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/kakwa/genautoo" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>genautoo</h1>
+
+<h1>Genautoo: an automated installer for gentoo</h1>
+
+<p>The goal of Genautoo is to install automatically Gentoo/Linux by customizing a single file.</p>
+
+<h2>Why Genautoo?</h2>
+
+<p>I'm not a big fan of redhat/fedora/centos but there is one thing I like in this environnement: the kickstart files.
+One simple file permitting you to easily install and reinstall and rereinstall your system as you want.</p>
+
+<p>Installing Gentoo is fun, but once you've done it several times, it doesn't learn you anything anymore.
+It's a time consumming process, but for those who like the distro, it remains a necessary step. </p>
+
+<p>In some cases, you may want to reinstall from scratch regularly. For example if you maintain some packages,
+it's a crude way to check that your ebuilds still work (since gentoo is a rolling release, breakages could happen).</p>
+
+<p>In other cases, you may want to install identical Gentoos on several computers.</p>
+
+<p>Genautoo is a solution for these situations.</p>
+
+<h2>Description</h2>
+
+<p>Genautoo is two things:</p>
+
+<ul>
+<li><p>A script generating a custom install iso for gentoo: genautoo.sh</p></li>
+<li><p>An installer: installer/install.sh (and it's lib)</p></li>
+</ul><h2>How do I use it?</h2>
+
+<p>Just follow the steps:</p>
+
+<ul>
+<li><p>create your config file </p></li>
+<li>
+<p>run (as root, sorry):</p>
+
+<p>./genautoo.sh -a amd64 -c  -o my_custom_install.iso</p>
+</li>
+<li><p>burn the iso/dd it on a usb stick</p></li>
+<li><p>boot the shit</p></li>
+<li><p>take a (long) coffee (several in fact)</p></li>
+<li><p>restart your computer (don't forget to remove the install media) and VOILA!</p></li>
+</ul><h2>Okay, but how do I create the config file?</h2>
+
+<p>Just use vim :) </p>
+
+<p>Humm, that's not helping? Okay. Creating the config file is simple, here is a simple example:</p>
+
+<pre><code>[global]
+#some global parameters
+
+#mirror="http://mirror.ovh.net/gentoo-distfiles/"
+#proxy="http://myproxy.example.net:8080"
+parallele_emerge="-j4"
+root_password="changeme"
+
+[network_install]
+#network configuration during the installation
+eth0 dhcp
+#eth1 static 192.168.42.100/24
+#route default gw 192.168.42.254
+#dns 8.8.8.8
+
+[network]
+#network configuration of the installed system
+
+[partitionning]
+#partitions description
+
+#DISK     SIZE     FS          MOUNT_POINT
+/dev/sda   120M     ext4        /boot
+/dev/sda   1G       reiserfs    /
+/dev/sda   5G       ext4        /home
+/dev/sda   5G       ext4        /usr
+/dev/sda   1G       swap
+/dev/sda   ALL      ext4        /var
+
+[make.conf]
+#lines ADDED to the make.conf
+
+MAKEOPTS="-j8"
+ACCEPT_LICENSE="*"
+LINGUAS="en fr"
+
+[packages]
+#list of the packages to install
+
+net-misc/dhcpcd
+app-editors/vim
+sys-process/htop
+sys-kernel/gentoo-sources
+
+[pre_setup]
+#script executed before anything has started
+
+echo "hello"
+
+[pre_install_nochroot]
+#shell script executed just before the chrooting
+
+echo "I"
+
+[pre_install_chroot]
+#shell script executed just after the chrooting
+
+echo "am"
+
+[post_install_chroot]
+#shell script executed after the installation inside the chroot
+
+echo "genautoo"
+
+[post_install_nochroot]
+#shell script executed after the installation outside the chroot
+
+echo "installer"
+</code></pre>
+
+<p>The order of the section doesn't matter, and you can split a section, for example:</p>
+
+<pre><code>[global]
+#some global parameters
+</code></pre>
+
+<p>[partitionning]
+    #partitions description</p>
+
+<pre><code>#DISK     SIZE     FS          MOUNT_POINT
+/dev/sda   120M     ext4        /boot
+/dev/sda   1G       reiserfs    /
+
+[global]
+#rest of the global parameters
+</code></pre>
+
+<p>Any way, there are some examples in the examples directory.</p>
+
+<h2>How does the installer work?</h2>
+
+<p>It's simply a bunch of bourne shell scripts that use the config file to do what they have to do.</p>
+
+<p>More explainations coming soon...</p>
+
+<h2>How does genautoo.sh work?</h2>
+
+<p>Just take a look at the help:</p>
+
+<pre><code>./genautoo.sh -h
+</code></pre>
+
+<p>Without optionnal arguments, it takes the installer, the config file, it downloads the lattest debian (hehehe) businesscard iso of the specified arch, and it builds a custom iso</p>
+
+<p>More explainations coming soon...</p>
+        </section>
+
+        <footer>
+          Genautoo is maintained by <a href="https://github.com/kakwa">kakwa</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
