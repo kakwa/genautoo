@@ -1,42 +1,34 @@
-<!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-  <title>Genautoo</title>
-  <meta name="description" content="Genautoo: an automated installer for gentoo">
+    <title>Genautoo by kakwa</title>
+  </head>
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <body>
 
-</head>
-
-<body>
-
-  <div class="wrapper">
     <header>
-      <h1 class="title">Genautoo</h1>
+      <div class="container">
+        <h1>Genautoo</h1>
+        <h2>Genautoo: an automated installer for gentoo</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/kakwa/genautoo/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/kakwa/genautoo/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/kakwa/genautoo" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
     </header>
-    <div id="container">
-      <p class="tagline">Genautoo: an automated installer for gentoo</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/kakwa/genautoo/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/kakwa/genautoo/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/kakwa/genautoo" class="code">View Genautoo on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h1>genautoo</h1>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>genautoo</h1>
 
 <h1>Genautoo: an automated installer for gentoo</h1>
 
@@ -47,11 +39,11 @@
 <p>I'm not a big fan of redhat/fedora/centos but there is one thing I like in this environnement: the kickstart files.
 One simple file permitting you to easily install and reinstall and rereinstall your system as you want.</p>
 
-<p>Installing Gentoo is fun, but once you've done it several times, it doesn't learn you anything anymore.
-It's a time consumming process, but for those who like the distro, it remains a necessary step. </p>
+<p>Installing Gentoo is fun, but once you've done it several times, it doesn't learn you anything.
+It's just a time consuming process, but for those who like the distro, it remains a necessary step. </p>
 
 <p>In some cases, you may want to reinstall from scratch regularly. For example if you maintain some packages,
-it's a crude way to check that your ebuilds still work (since gentoo is a rolling release, breakages could happen).</p>
+it's a crude way to check that your ebuilds still work (since gentoo is a rolling release, your ebuilds could easily break).</p>
 
 <p>In other cases, you may want to install identical Gentoos on several computers.</p>
 
@@ -63,7 +55,7 @@ it's a crude way to check that your ebuilds still work (since gentoo is a rollin
 
 <ul>
 <li><p>A script generating a custom install iso for gentoo: genautoo.sh</p></li>
-<li><p>An installer: installer/install.sh (and it's lib)</p></li>
+<li><p>An installer: installer/install.sh (and its libs)</p></li>
 </ul><h2>How do I use it?</h2>
 
 <p>Just follow the steps:</p>
@@ -177,7 +169,7 @@ echo "installer"
 
 <p>It's simply a bunch of bourne shell scripts that use the config file to do what they have to do.</p>
 
-<p>More explainations coming soon...</p>
+<p>More explanations coming soon...</p>
 
 <h2>How does genautoo.sh work?</h2>
 
@@ -186,29 +178,12 @@ echo "installer"
 <pre><code>./genautoo.sh -h
 </code></pre>
 
-<p>Without optionnal arguments, it takes the installer, the config file, it downloads the lattest debian (hehehe) businesscard iso of the specified arch, and it builds a custom iso</p>
+<p>Without optional arguments, it takes the installer, the config file, it downloads the latest debian (hehehe) businesscard iso of the specified arch, and it builds a custom iso</p>
 
-<p>More explainations coming soon...</p>
-        </article>
-      </div>
+<p>More explanations coming soon...</p>
+      </section>
     </div>
-    <footer>
-      <div class="owner">
-      <p><a href="https://github.com/kakwa" class="avatar"><img src="https://secure.gravatar.com/avatar/bf9868bd766533e965b2eb1ed2d4ef76?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" width="48" height="48"/></a> <a href="https://github.com/kakwa">kakwa</a> maintains <a href="https://github.com/kakwa/genautoo">Genautoo</a></p>
 
-
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-    </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/kakwa/genautoo/tarball/master" class="tar">tar</a><a href="https://github.com/kakwa/genautoo/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
-
-  
-</body>
+    
+  </body>
 </html>
