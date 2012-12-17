@@ -36,7 +36,7 @@ splitter_cfg_splliter(){
         then echo "$line" >>$output_dir/$SPLITTER_CURRENT_OUTFILE
         fi
         
-    done < $input_file |sed "s/#.*//"
+    done < $input_file 
 }
 
 splitter_init(){
