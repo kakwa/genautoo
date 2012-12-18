@@ -1,6 +1,6 @@
 #this lib handles the configuration of the network during the install stage
 
-network_handler(){
+network_install_handler(){
     local line="$1"
 
     local arg_1=`common_get_arg_n 1 "$line"`  
@@ -34,6 +34,6 @@ network_install_configure(){
     common_cleanup_file $input_file $cleaned_network_file
     while read line
     do
-        network_handler "$line"
+        network_install_handler "$line"
     done <$cleaned_network_file
 }
