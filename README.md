@@ -61,11 +61,16 @@ Humm, that's not helping? Okay. Creating the config file is simple, here is a si
     #network configuration during the installation
     eth0 dhcp
     #eth1 static 192.168.42.100/24
-    #route default gw 192.168.42.254
+    #route eth1 default gw 192.168.42.254
     #dns 8.8.8.8
 
     [network]
     #network configuration of the installed system
+
+    #eth1 static 192.168.69.51/24
+    #route eth1 default gw 192.168.69.1
+    #dns 8.8.8.8
+
 
     [partitionning]
     #partitions description

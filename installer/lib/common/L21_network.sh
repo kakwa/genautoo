@@ -5,14 +5,15 @@ network_handler(){
     local arg_2=`common_get_arg_n 2 "$line"`  
     local arg_3=`common_get_arg_n 3 "$line"`  
     local arg_4=`common_get_arg_n 4 "$line"`  
+    local arg_5=`common_get_arg_n 5 "$line"`  
 
     if [ "$arg_1" = "route" ]
     then  
-        echo "route=\"$arg_2 via $arg_4\"" >>/etc/conf.d/net
+        echo "route_$arg2=\"$arg_3 via $arg_5\"" >>/etc/conf.d/net
 
     elif [ "$arg_1" = "hostname" ]
     then  
-	    sed -i "s/hostname.*=.*/hostname="$hostname"/" /etc/conf.d/hostname
+	    sed -i "s/hostname.*=.*/hostname=\"$hostname\"/" /etc/conf.d/hostname
         hostname $hostname
 
     elif [ "$arg_1" = "dns" ]

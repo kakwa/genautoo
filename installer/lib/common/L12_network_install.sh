@@ -7,11 +7,11 @@ network_install_handler(){
     local arg_2=`common_get_arg_n 2 "$line"`  
     local arg_3=`common_get_arg_n 3 "$line"`  
     local arg_4=`common_get_arg_n 4 "$line"`  
-    echo $arg_1 $arg_2 $arg_3 $arg_4
+    local arg_5=`common_get_arg_n 5 "$line"`  
 
     if [ "$arg_1" = "route" ]
     then  
-        route add -net $arg_2 $arg_3 $arg_4
+        route add -net $arg_3 $arg_4 $arg_5
     elif [ "$arg_1" = "dns" ]
     then 
         echo "nameserver $arg_2" >>/etc/resolv.conf
