@@ -1,0 +1,14 @@
+This directory contains the libs of the installer
+
+Directory convention:
+- the arch specific functions need to be put insided "arch/<right arch directory>/"
+- the non-arch specific functions need to be put in common/ 
+
+File naming convention:
+- the files in common/ should be named L<2 digits number>_<name of the lib>.sh 
+- the files in arch/<arch>/ should be named A<2 digits number>_<name of the sub lib>.sh
+- the first digit of "<2 digits number>" should be "1" for pre_chroot, "2" for chroot, "3 for post_chroot"
+
+Function naming convention:
+- the function in common/ should be named "<name of the lib>_<subname of the function>"
+- the function in arch/<arch>/  should be named "arch_<name of the lib>_<subname of the function>"
