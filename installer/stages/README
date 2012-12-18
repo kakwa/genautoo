@@ -1,0 +1,11 @@
+This directory contains the 3 main stages of the installer:
+- prechroot.sh
+- chroot.sh
+- postchroot.sh
+
+Each script is called by install.sh in that order.
+
+prechroot.sh and postchroot.sh are executed inside the livecd environment, chroot is executed inside the target environment
+
+
+There is also loader, it's a simple shell lib loader
