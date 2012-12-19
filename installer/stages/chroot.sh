@@ -43,49 +43,4 @@ password_set_password
 
 common_print_message "[$script_name] configuring the network for the future system"
 network_configure $GLOBAL_CHROOT_DIR_INSTALLER/$GLOBAL_SPLITTED_DIR/network
-#deploy_env(){
-#mv   ../env.d/* /
-#}
 
-#update_stage3(){
-#emerge -j3  gentoolkit
-#emerge-webrsync
-#emerge -uvDN -j3 world
-#revdep-rebuild
-#echo "truc"
-#}
-
-
-#install_kernel(){
-#emerge gentoo-sources genkernel
-#cd /usr/src/linux/
-#genkernel --makeopts=-j8 --no-menuconfig all
-#}
-
-#install_grub(){
-#emerge grub
-#kernel=`ls /boot/kernel*|head -n 1`
-#initrd=`ls /boot/initramfs*|head -n 1`
-#cat >/boot/grub/grub.conf <<EOF
-#default 0
-#timeout 3
-#splashimage=(hd0,0)/boot/grub/splash.xpm.gz
-
-#title Gentoo Linux $kernel 
-#root (hd0,1)
-#kernel /boot/$kernel root=/dev/sda2
-#initrd /boot/$initrd
-#EOF
-#grep -v rootfs /proc/mounts >/etc/mtab
-#grub-install --no-floppy /dev/sda
-#}
-
-#set_root_password(){
-#printf "password\npassword\n"|passwd
-#}
-
-#deploy_env
-#update_stage3
-#install_kernel
-#install_grub
-#set_root_password
