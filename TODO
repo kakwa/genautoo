@@ -1,0 +1,12 @@
+Todo list, first one are more likely to be implemented, last ones, you could help :)
+
+- more comments inside the code
+- create some more evolved examples
+- setting a better timeout on the iso
+- implementing all the option listed in genautoo.sh (install of other .debs)
+- handling multiple install scripts (isolinux menu) on one cd
+- modification of the way we install .debs in the install cd (now, it's arch specific, you need to generate your cd on a system that as the same arch that your target)
+- adding a true error handling inside the installer with error codes
+- handling more arches
+- handling lvm
+- forking this stuff to see if it can be adapted and used for debian (... preseed, if you've tried it, you now what I mean)
