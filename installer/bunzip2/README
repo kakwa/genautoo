@@ -1,2 +1,4 @@
 walk arround http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=685361
-(bunzip2 from the busybx doesn't work)
+(bunzip2 from the busybox doesn't work)
+
+we add a staticaly compiled bunzip2
