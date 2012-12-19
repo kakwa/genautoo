@@ -2,6 +2,10 @@
 
 The goal of Genautoo is to install automatically Gentoo/Linux by customizing a single file.
 
+## License
+
+genautoo is released under the MIT license
+
 ## Why Genautoo?
 
 I'm not a big fan of redhat/fedora/centos but there is one thing I like in this environnement: the kickstart files.
