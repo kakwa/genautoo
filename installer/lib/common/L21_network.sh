@@ -9,12 +9,12 @@ network_handler(){
 
     if [ "$arg_1" = "route" ]
     then  
-        echo "route_$arg2=\"$arg_3 via $arg_5\"" >>/etc/conf.d/net
+        echo "route_$arg_2=\"$arg_3 via $arg_5\"" >>/etc/conf.d/net
 
     elif [ "$arg_1" = "hostname" ]
     then  
-	    sed -i "s/hostname.*=.*/hostname=\"$hostname\"/" /etc/conf.d/hostname
-        hostname $hostname
+	    sed -i "s/hostname.*=.*/hostname=\"$arg_2\"/" /etc/conf.d/hostname
+        hostname $arg_2
 
     elif [ "$arg_1" = "dns" ]
     then 
