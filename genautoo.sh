@@ -32,17 +32,25 @@ exit 1
 
 common_print_message()
 {
+    # function for displaying a centered message between line of # 
+    local message=$1
+
     printf "\n\n#############################################################################\n"
-    echo "$1" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
+    echo "$message" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
     printf "#############################################################################\n\n\n"
 }
 
 test_present_in_path(){
+    #function testing the presence of a binary in $PATH 
     local binary=$1
-    which $binary &>/dev/null
+
+    which $binary 2>&1 >/dev/null
 }
 
 test_present_tool(){
+    #function checking if your system have a requiered tool 
+    #it exits displaying the packages if tool not present
+
     local tool=$1
     local gentoo_package=$2
     local debian_package=$3
@@ -59,6 +67,7 @@ test_present_tool(){
 }
 
 test_needed_tools(){
+    #function testing the main needed tools for the generation
 
     common_print_message "Testing if you have the needed tools"
 
@@ -71,6 +80,7 @@ test_needed_tools(){
 }
 
 die(){
+    #a small exit error handler, that exits displaying a given message
     local message="$1"
 
     echo
@@ -83,6 +93,7 @@ die(){
 
 
 init_tmp_dir(){
+    #tmp build directories initialisation
     if [ -z "$BUILD_DIR" ]
     then
         export TMPDIR="/tmp/"
@@ -97,6 +108,7 @@ init_tmp_dir(){
 }
 
 clean(){
+    #clean the tmp build directories
     rm -rf $tmp_mount_dir
     rm -rf $tmp_new_iso_dir
     rm -rf $tmp_new_initrd_dir
@@ -104,6 +116,7 @@ clean(){
 }
 
 get_base_iso(){
+    #function getting the latest stable version of the debian install cd (if not already on the system)
 
     BASE_URL="http://cdimage.debian.org/debian-cd/current/$ARCH/iso-cd/"
 
@@ -125,6 +138,7 @@ get_base_iso(){
 
 
 extrac_iso_content(){
+    #function mounting a the debian iso, and copying its content inside $tmp_new_iso_dir
     common_print_message "copying the the content of the iso in $tmp_new_iso_dir"
     mount -o ro,loop $ISO_NAME $tmp_mount_dir || die "could not mount the iso"
     rsync -a -H --exclude=TRANS.TBL $tmp_mount_dir/ $tmp_new_iso_dir/
@@ -132,6 +146,8 @@ extrac_iso_content(){
 }
 
 extract_initrd(){
+    #function extracting the content of the iso initrd for later modification
+    #it also put the pool directory (containing the packages) in the extract directory
     common_print_message "extracting the content of the initrd"
     tmp_new_initrd_dir_PATH=`find $tmp_new_iso_dir -name "initrd.gz"|grep -v gtk`
     mv $tmp_new_initrd_dir_PATH $tmp_garbage_dir
@@ -145,6 +161,7 @@ extract_initrd(){
 }
 
 installing_udeb(){
+    #function installing some udebs from the pool directory of the iso
 common_print_message "installing some udeb, and throwing the rest away"
 
 cat >$tmp_new_initrd_dir/install_udeb.sh <<EOF
@@ -172,6 +189,9 @@ editing_debian_installer(){
 }
 
 adding_install_scritps(){
+    #function adding the genautoo installer, bunzip2 and the config file
+    #and adding a small script inside /lib/debian-installer.d/ (we insert our installer inside 
+    #the debian installer workflow)
     common_print_message "adding our shit inside this install cd..."
     cp $INSTALLER_DIR/bunzip2/bunzip2.$GENTOO_ARCH $tmp_new_initrd_dir/bin/bunzip2
     cp -r $INSTALLER_DIR $tmp_new_initrd_dir/
@@ -189,12 +209,14 @@ adding_install_scritps(){
 }
 
 copy(){
+    #function adding the optional custom content
     if ! [ -z "$ADDITIONNAL_CONTENT" ]
     then rsync -a $ADDITIONNAL_CONTENT/ $tmp_new_initrd_dir/
     fi
 }
 
 create_new_initrd(){
+    #function creating the new initrd and putting it inside the iso directory
     cd $tmp_new_initrd_dir
     find . | cpio --create --format='newc' >$tmp_garbage_dir/initrd
     gzip $tmp_garbage_dir/initrd
@@ -204,6 +226,7 @@ create_new_initrd(){
 
 
 build_new_iso(){
+    #funtion building the new iso
     common_print_message "making the new iso"
     sed -i "s/timeout.*/timeout 1/" $tmp_new_iso_dir/isolinux/isolinux.cfg
 #    mkisofs -r -T -J -V "Custom Debian Build" -b isolinux/isolinux.bin \
@@ -300,7 +323,6 @@ complete_iso_name(){
     fi
 }
 
-###############################################################################
 
 
 set_debian_arch(){
@@ -311,6 +333,8 @@ else
     ARCH="$GENTOO_ARCH"
 fi
 }
+
+###############################################################################
 
 while getopts ":ha:c:o:Dp:d:i:I:b:" opt; do
   case $opt in
@@ -374,13 +398,14 @@ done
 
 cd `dirname $0`
 
-if [ $UID -ne 0 ]
+test_needed_tools
+
+if [ `id -u` -ne 0 ]
 then
     common_print_message "you must be root to execute this script"
     exit 1
 fi
 
-test_needed_tools
 test_mandatory_args
 complete_iso_name
 test_optionnal_args
