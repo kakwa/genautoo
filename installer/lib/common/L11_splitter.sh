@@ -20,8 +20,8 @@ splitter_cfg_splliter(){
     #error 14 if $2 is not writtable for you
 
 
-    input_file=$1
-    output_dir=$2
+    local input_file=$1
+    local output_dir=$2
 
     ! [ -z "$input_file" ] || exit 11
     ! [ -z $output_dir ] || exit 11
@@ -44,7 +44,7 @@ splitter_init(){
     #function initiating the different files 
     #input $1 -> the out directory where to put the result
 
-    output_dir=$1
+    local output_dir=$1
 
     mkdir -p "$output_dir" || exit 13
 
@@ -60,8 +60,11 @@ splitter_init(){
     done
 }
 
-#function set
 splitter_setflag(){
+    #this function sets the flag (the current section we are dealing with)
+    #it sets the global variable $flag to the section's name
+    #if it's a section delimiter and return 1.
+    #it return 0 if it's a standard line.
     flag=$1
     for section in `echo $SPLITTER_SCRIPT_SECTIONS $SPLITTER_CONFIG_SECTIONS`
     do
