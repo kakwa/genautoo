@@ -1,4 +1,6 @@
 common_set_proxy(){
+    #export proxy env variables if needed
+
     #if specified, we set the proxy
     if ! [ -z $proxy ]
     then
@@ -9,6 +11,8 @@ common_set_proxy(){
 }
 
 common_set_mirror(){
+    #set the mirror where we get the stage3 and the portage tree
+
     #if empty, we set a default value
     if  [ -z $mirror ]
     then
@@ -17,6 +21,8 @@ common_set_mirror(){
 }
 
 common_set_parallele_emerges(){
+    #set the number of emerge to run in parallel 
+    #(-jN option of emerge, not the MAKEOPTS in make.conf)
     #if empty, we set a default value
     if  [ -z $parallele_emerge ]
     then
@@ -35,6 +41,10 @@ common_cleanup_file(){
 }
 
 common_get_arg_n(){
+    #get arg N of a space separated list of arguments in a given line
+    #$1 -> the arg number
+    #$2 -> the line
+
     local arg_number=$1
     local line="$2"
 
@@ -43,6 +53,7 @@ common_get_arg_n(){
 }
 
 common_get_line_n(){
+    #get the line N of a given file
     local input_file=$1
     local line=$2
 
@@ -52,6 +63,7 @@ common_get_line_n(){
 
 common_print_message()
 {
+     #small function that print a centered message (the message must be between quotes or double quotes)
      printf "\n\n#############################################################################\n" 
      echo "$1" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
      printf "#############################################################################\n\n\n" 
@@ -59,6 +71,9 @@ common_print_message()
 
 COUNTER_TMP=1112
 mktemp(){
+    #a dirty reimplementation of mktemp 
+    #it only handles creation of a dir or a file in /tmp
+    #(I believed it was in the debian install cd, but no)
     while [ -e /tmp/tmp.$COUNTER_TMP ]
     do
         COUNTER_TMP=$(( $COUNTER_TMP + 1 ))
