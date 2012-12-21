@@ -4,7 +4,7 @@ The goal of Genautoo is to install automatically Gentoo/Linux by customizing a s
 
 ## License
 
-genautoo is released under the MIT license
+genautoo is released under the MIT Public License
 
 ## Why Genautoo?
 
