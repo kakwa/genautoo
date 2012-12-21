@@ -80,6 +80,6 @@ root ($grub_disk,$grub_number)
 kernel /$kernel root=$root_partition
 initrd /$initrd
 EOF
-    grub-install --no-floppy /dev/sda
+    grub-install --no-floppy $boot_disk
 }
 
