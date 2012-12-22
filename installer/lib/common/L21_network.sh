@@ -7,9 +7,11 @@ network_handler(){
     local arg_4=`common_get_arg_n 4 "$line"`  
     local arg_5=`common_get_arg_n 5 "$line"`  
 
+    echo >>/etc/conf.d/net
     if [ "$arg_1" = "route" ]
     then  
-        echo "route_$arg_2=\"$arg_3 via $arg_5\"" >>/etc/conf.d/net
+        echo "routes_$arg_2=\"\$routes_$arg_2" >>/etc/conf.d/net
+        echo "$arg_3 via $arg_5\"" >>/etc/conf.d/net
 
     elif [ "$arg_1" = "hostname" ]
     then  
@@ -51,7 +53,11 @@ network_configure(){
 
     local cleaned_network_file=`mktemp`
     common_cleanup_file $input_file $cleaned_network_file
-    echo 
+
+    echo "" >>/etc/conf.d/net
+    echo "#genrated by genautoo" /etc/conf.d/net
+    echo "" >>/etc/conf.d/net
+
     while read line
     do
         network_handler "$line"
