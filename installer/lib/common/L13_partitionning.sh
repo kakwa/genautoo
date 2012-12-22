@@ -1,7 +1,7 @@
-#this lib handle the partitionning of the disks
+#this lib handles the partitionning of the disks
 
 partitionning_get_disks_list(){
-    #this function just give the list of the devices
+    #this function just give the list of the devices listed inside the partitionning section file
     #$1 the cleaned list of partition
     local input_file=$1
 
@@ -20,14 +20,20 @@ partitionning_get_disks_list(){
 
 partitionning_partitionning(){
     #this script create the partition
-    #$1 -> the partionning file
+    #$1 -> the partionning section file
+
     local input_file=$1
     local CLEANED_PARTIONS_FILE=`mktemp`
+
     common_cleanup_file $input_file  $CLEANED_PARTIONS_FILE
 
     local partitionning_dir_script=`mktemp -d`
+
+    #we call an arch specific function that create the partitionning scripts
     arch_partitionning_create_script $CLEANED_PARTIONS_FILE $partitionning_dir_script
     chmod -R 755 $partitionning_dir_script
+
+    #we excute the generated scripts
     cd $partitionning_dir_script
     for s in `ls`
     do
@@ -37,6 +43,3 @@ partitionning_partitionning(){
 }
 
 
-#. ../arch/i686/A04_partionning.sh
-
-#partitionning_partitionning $1
