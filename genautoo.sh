@@ -33,7 +33,7 @@ exit 1
 common_print_message()
 {
     # function for displaying a centered message between line of # 
-    local message=$1
+    local message="$1"
 
     printf "\n\n#############################################################################\n"
     echo "$message" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
