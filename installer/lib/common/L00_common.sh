@@ -2,7 +2,7 @@ common_set_proxy(){
     #export proxy env variables if needed
 
     #if specified, we set the proxy
-    if ! [ -z $proxy ]
+    if ! [ -z "$proxy" ]
     then
         export http_proxy=$proxy
         export ftp_proxy=$proxy
@@ -14,7 +14,7 @@ common_set_mirror(){
     #set the mirror where we get the stage3 and the portage tree
 
     #if empty, we set a default value
-    if  [ -z $mirror ]
+    if  [ -z "$mirror" ]
     then
         mirror="$GLOBAL_DEFAULT_MIRROR"
     fi
@@ -24,7 +24,7 @@ common_set_parallele_emerges(){
     #set the number of emerge to run in parallel 
     #(-jN option of emerge, not the MAKEOPTS in make.conf)
     #if empty, we set a default value
-    if  [ -z $parallele_emerge ]
+    if  [ -z "$parallele_emerge" ]
     then
         parallele_emerge="$GLOBAL_DEFAULT_PARALLE_ERMERGE"
     fi
