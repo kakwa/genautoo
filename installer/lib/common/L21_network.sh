@@ -38,15 +38,6 @@ network_handler(){
 
 }
 
-network_set_hostname_install(){
-    local input_file=$1
-
-    local cleaned_network_file=`mktemp`
-    common_cleanup_file $input_file $cleaned_network_file
-    local line_hostname=`grep "^hostname" $cleaned_network_file`
-    local hostname=`common_get_arg_n 2 "$line_hostname"`
-    hostname $hostname
-}
 
 network_configure(){
     local input_file=$1
