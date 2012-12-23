@@ -1,7 +1,5 @@
 #this lib handles emerge and its shits...
 
-
-
 package_cleanup_package_list(){
     #this function filters the list of package 
     #it only keeps the existing packages
@@ -54,37 +52,29 @@ package_update_and_install_list(){
     #we clean the mess you've done
     input_packages_list_cleaned=`mktemp`
     error_packages="/root/error_packages"
-
     package_cleanup_package_list $input_packages_list $input_packages_list_cleaned $error_packages
 
+    #we update
     rm /usr/portage/metadata/timestamp.x
     emerge-webrsync
     emerge -v $parallele_emerge gentoolkit
 
-    #emerge -uvDNp world  `cat $input_packages_list_cleaned` --autounmask-write
-    #etc-update --automode "-5"
-
-
     ret=1
-    #we first unmask all the packages
-
-    #we try emerge packages, if it fails, we clean the shit and we retry
-    #we retry only if we actually succeded to install something on the 
-    #precedent step ( the number of installed has increased )
-
-    #number_of_packages_after=`package_number_of_installed_packages`
-    #number_of_packages_before=0
     
+    #just putting the packages to install in a variable
     local new_packages=`cat $input_packages_list_cleaned`
 
-    echo "emerge -uvDN world $parallele_emerge `echo $new_packages` --autounmask-write"
+
+    #first attempt to install our packages, if it fails, maybe it only because
+    #of  ~ packages (or worst), so we unmask then
     emerge -uvDN world $parallele_emerge `echo $new_packages` --autounmask-write
     ret=$?
     etc-update --automode "-5" 
 
+    #while we have some troubles, we revdep-rebuuild etc... and retry
+    #could easily end up in an infinite loop!
     while [ $ret -ne 0 ] 
     do
-            
         perl-cleaner --reallyall
         python-updater
         revdep-rebuild
@@ -93,8 +83,8 @@ package_update_and_install_list(){
         
     done
 
+    #we clean one last time
     perl-cleaner --reallyall
     python-updater
     revdep-rebuild
-
 }
