@@ -7,7 +7,7 @@ arch_partitionning_create_script(){
 
     input_file=$1
     partitionning_dir_script=$2
-    partitionning_cleanup $input_file
+    common_cleanup_file $input_file
     partitionning_get_disks_list $CLEANED_PARTIONS_FILE
 
     for d in $DEVICE_LIST
