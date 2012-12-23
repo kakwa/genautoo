@@ -1,4 +1,7 @@
 network_handler(){
+    #this function handles a line of the network
+    #section
+    #it follows the same principles that network_install
     local line="$1"
 
     local arg_1=`common_get_arg_n 1 "$line"`  
@@ -40,6 +43,8 @@ network_handler(){
 
 
 network_configure(){
+    #this function configure the network 
+    #for the target system
     local input_file=$1
 
     local cleaned_network_file=`mktemp`
