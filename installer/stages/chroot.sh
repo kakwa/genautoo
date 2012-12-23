@@ -19,12 +19,11 @@ common_set_proxy
 common_print_message "[$script_name] adding lines to make.conf"
 makeconf_add_makeconf_section
 
+common_print_message "[$script_name] configuring the network for the future system"
+network_configure $GLOBAL_CHROOT_DIR_INSTALLER/$GLOBAL_SPLITTED_DIR/network
+
 common_print_message "[$script_name] executing the [pre_install_chroot] section"
 $GLOBAL_CHROOT_DIR_INSTALLER/$GLOBAL_SPLITTED_DIR/pre_install_chroot
-
-
-common_print_message "[$script_name] configuring the hostname" 
-network_set_hostname_install $GLOBAL_CHROOT_DIR_INSTALLER/$GLOBAL_SPLITTED_DIR/network
 
 common_print_message "[$script_name] updating and installing the packages"
 package_update_and_install_list $GLOBAL_CHROOT_DIR_INSTALLER/$GLOBAL_SPLITTED_DIR/packages
@@ -41,6 +40,4 @@ $GLOBAL_CHROOT_DIR_INSTALLER/$GLOBAL_SPLITTED_DIR/post_install_chroot
 common_print_message "[$script_name] setting the root password"
 password_set_password
 
-common_print_message "[$script_name] configuring the network for the future system"
-network_configure $GLOBAL_CHROOT_DIR_INSTALLER/$GLOBAL_SPLITTED_DIR/network
 
