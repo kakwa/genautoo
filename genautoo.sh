@@ -3,6 +3,7 @@
 
 SUPPORTED_ARCH="amd64 i686" #list of the supported architecture
 INSTALLER_DIR="./installer/" #default value, can be override
+STATIC_DIR="./static/" #static ressourceis directory
 
 help(){
 echo "`basename $0`: a small tool to build automatic gentoo installer"
@@ -193,7 +194,7 @@ adding_install_scritps(){
     #and adding a small script inside /lib/debian-installer.d/ (we insert our installer inside 
     #the debian installer workflow)
     common_print_message "adding our shit inside this install cd..."
-    cp $INSTALLER_DIR/bunzip2/bunzip2.$GENTOO_ARCH $tmp_new_initrd_dir/bin/bunzip2
+    cp $STATIC_DIR/bunzip2/bunzip2.$GENTOO_ARCH $tmp_new_initrd_dir/bin/bunzip2
     cp -r $INSTALLER_DIR $tmp_new_initrd_dir/
     mkdir -p $tmp_new_initrd_dir/config/
     cp -r $CONFIGURATION_FILE $tmp_new_initrd_dir/config/install.cfg
@@ -229,6 +230,7 @@ build_new_iso(){
     #funtion building the new iso
     common_print_message "making the new iso"
     sed -i "s/timeout.*/timeout 1/" $tmp_new_iso_dir/isolinux/isolinux.cfg
+    cp $STATIC_DIR/isohdpfx.bin $tmp_new_iso_dir/
 #    mkisofs -r -T -J -V "Custom Debian Build" -b isolinux/isolinux.bin \
 #    -c isolinux/boot.cat -no-emul-boot -boot-load-size 4  -boot-info-table \
 #    -o debian_custom_install_`date +%F-%H%M%S`.iso  $tmp_new_iso_dir
@@ -241,10 +243,12 @@ build_new_iso(){
          -preparer "prepared by genautoo" \
          -eltorito-boot isolinux/isolinux.bin \
          -eltorito-catalog isolinux/boot.cat \
+         -isohybrid-mbr $tmp_new_iso_dir/isohdpfx.bin \
          -no-emul-boot -boot-load-size 4 -boot-info-table \
-         -isohybrid-mbr $tmp_new_iso_dir/g2ldr.mbr \
          -output "$OUT_ISO" \
          "$tmp_new_iso_dir/"
+
+         #-isohybrid-mbr $tmp_new_iso_dir/g2ldr.mbr \
 }
 
 test_mandatory_args(){
