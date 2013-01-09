@@ -75,7 +75,7 @@ package_update_and_install_list(){
     #could easily end up in an infinite loop!
     while [ $ret -ne 0 ] 
     do
-        perl-cleaner --reallyall
+        perl-cleaner --all
         python-updater
         revdep-rebuild
         emerge -uvDN world $parallele_emerge `echo $new_packages`
@@ -84,7 +84,7 @@ package_update_and_install_list(){
     done
 
     #we clean one last time
-    perl-cleaner --reallyall
+    perl-cleaner --all
     python-updater
     revdep-rebuild
 }
