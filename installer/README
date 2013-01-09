@@ -2,7 +2,6 @@ This is the genautoo installer.
 
 In this directory you find:
 - install.sh: the master script of the install
-- bunzip2: bunzip2 (see readme inside the directory)
 - conf: the general conf of the installer (default urls, default path etc...) 
 - lib: the libs of the installer (in fact real things are done here)
 - stages: submaster scripts for the 3 different stages of the install
