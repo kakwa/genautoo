@@ -9,4 +9,5 @@ Todo list, first ones are more likely to be implemented, last ones, you could he
 - adding a true error handling inside the installer with error codes
 - handling more arches
 - handling lvm
+- handling raid
 - forking this stuff to see if it can be adapted and used for debian (... preseed, if you've tried it, you now what I mean)
