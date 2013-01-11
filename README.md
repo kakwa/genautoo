@@ -53,6 +53,7 @@ Just use vim :)
 
 Humm, that's not helping? Okay. Creating the config file is simple, here is a simple example:
 
+```bash
     [global]
     #some global parameters
 
@@ -126,7 +127,7 @@ Humm, that's not helping? Okay. Creating the config file is simple, here is a si
     #shell script executed after the installation outside the chroot
 
     echo "installer"
-
+```
 The order of the section doesn't matter, and you can split a section, for example:
 
     [global]
