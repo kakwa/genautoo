@@ -53,7 +53,7 @@ Just use vim :)
 
 Humm, that's not helping? Okay. Creating the config file is simple, here is a simple example:
 
-```ini
+```shell
     [global]
     #some global parameters
 
