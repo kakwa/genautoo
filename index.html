@@ -87,33 +87,33 @@ it's a crude way to check that your ebuilds still work (since gentoo is a rollin
 
 <p>Humm, that's not helping? Okay. Creating the config file is simple, here is a simple example:</p>
 
-<pre><code>[global]
-#some global parameters
+<div class="highlight"><pre><span class="o">[</span>global<span class="o">]</span>
+<span class="c">#some global parameters</span>
 
-#mirror="http://mirror.ovh.net/gentoo-distfiles/"
-#proxy="http://myproxy.example.net:8080"
-parallele_emerge="-j4"
-root_password="changeme"
+<span class="c">#mirror="http://mirror.ovh.net/gentoo-distfiles/"</span>
+<span class="c">#proxy="http://myproxy.example.net:8080"</span>
+<span class="nv">parallele_emerge</span><span class="o">=</span><span class="s2">"-j4"</span>
+<span class="nv">root_password</span><span class="o">=</span><span class="s2">"changeme"</span>
 
-[network_install]
-#network configuration during the installation
+<span class="o">[</span>network_install<span class="o">]</span>
+<span class="c">#network configuration during the installation</span>
 eth0 dhcp
-#eth1 static 192.168.42.100/24
-#route eth1 default gw 192.168.42.254
-#dns 8.8.8.8
+<span class="c">#eth1 static 192.168.42.100/24</span>
+<span class="c">#route eth1 default gw 192.168.42.254</span>
+<span class="c">#dns 8.8.8.8</span>
 
-[network]
-#network configuration of the installed system
+<span class="o">[</span>network<span class="o">]</span>
+<span class="c">#network configuration of the installed system</span>
 
-#eth1 static 192.168.69.51/24
-#route eth1 default gw 192.168.69.1
-#dns 8.8.8.8
+<span class="c">#eth1 static 192.168.69.51/24</span>
+<span class="c">#route eth1 default gw 192.168.69.1</span>
+<span class="c">#dns 8.8.8.8</span>
 
 
-[partitionning]
-#partitions description
+<span class="o">[</span>partitionning<span class="o">]</span>
+<span class="c">#partitions description</span>
 
-#DISK     SIZE     FS          MOUNT_POINT
+<span class="c">#DISK     SIZE     FS          MOUNT_POINT</span>
 /dev/sda   120M     ext4        /boot
 /dev/sda   1G       reiserfs    /
 /dev/sda   5G       ext4        /home
@@ -121,62 +121,61 @@ eth0 dhcp
 /dev/sda   1G       swap
 /dev/sda   ALL      ext4        /var
 
-[make.conf]
-#lines ADDED to the make.conf
+<span class="o">[</span>make.conf<span class="o">]</span>
+<span class="c">#lines ADDED to the make.conf</span>
+<span class="nv">MAKEOPTS</span><span class="o">=</span><span class="s2">"-j8"</span>
+<span class="nv">ACCEPT_LICENSE</span><span class="o">=</span><span class="s2">"*"</span>
+<span class="nv">LINGUAS</span><span class="o">=</span><span class="s2">"en fr"</span>
 
-MAKEOPTS="-j8"
-ACCEPT_LICENSE="*"
-LINGUAS="en fr"
-
-[packages]
-#list of the packages to install
+<span class="o">[</span>packages<span class="o">]</span>
+<span class="c">#list of the packages to install</span>
 
 net-misc/dhcpcd
 app-editors/vim
 sys-process/htop
 sys-kernel/gentoo-sources
 
-[pre_setup]
-#script executed before anything has started
+<span class="o">[</span>pre_setup<span class="o">]</span>
+<span class="c">#script executed before anything has started</span>
 
-echo "hello"
+<span class="nb">echo</span> <span class="s2">"hello"</span>
 
-[pre_install_nochroot]
-#shell script executed just before the chrooting
+<span class="o">[</span>pre_install_nochroot<span class="o">]</span>
+<span class="c">#shell script executed just before the chrooting</span>
 
-echo "I"
+<span class="nb">echo</span> <span class="s2">"I"</span>
 
-[pre_install_chroot]
-#shell script executed just after the chrooting
+<span class="o">[</span>pre_install_chroot<span class="o">]</span>
+<span class="c">#shell script executed just after the chrooting</span>
 
-echo "am"
+<span class="nb">echo</span> <span class="s2">"am"</span>
 
-[post_install_chroot]
-#shell script executed after the installation inside the chroot
+<span class="o">[</span>post_install_chroot<span class="o">]</span>
+<span class="c">#shell script executed after the installation inside the chroot</span>
 
-echo "genautoo"
+<span class="nb">echo</span> <span class="s2">"genautoo"</span>
 
-[post_install_nochroot]
-#shell script executed after the installation outside the chroot
+<span class="o">[</span>post_install_nochroot<span class="o">]</span>
+<span class="c">#shell script executed after the installation outside the chroot</span>
 
-echo "installer"
-</code></pre>
+<span class="nb">echo</span> <span class="s2">"installer"</span>
+</pre></div>
 
 <p>The order of the section doesn't matter, and you can split a section, for example:</p>
 
-<pre><code>[global]
-#some global parameters
+<div class="highlight"><pre><span class="o">[</span>global<span class="o">]</span>
+<span class="c">#some global parameters</span>
 
-[partitionning]
-#partitions description
+<span class="o">[</span>partitionning<span class="o">]</span>
+<span class="c">#partitions description</span>
 
-#DISK     SIZE     FS          MOUNT_POINT
+<span class="c">#DISK     SIZE     FS          MOUNT_POINT</span>
 /dev/sda   120M     ext4        /boot
 /dev/sda   1G       reiserfs    /
 
-[global]
-#rest of the global parameters
-</code></pre>
+<span class="o">[</span>global<span class="o">]</span>
+<span class="c">#rest of the global parameters</span>
+</pre></div>
 
 <p>Any way, there are some examples in the examples directory.</p>
 
