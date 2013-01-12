@@ -54,94 +54,94 @@ Just use vim :)
 Humm, that's not helping? Okay. Creating the config file is simple, here is a simple example:
 
 ```shell
-    [global]
-    #some global parameters
+[global]
+#some global parameters
 
-    #mirror="http://mirror.ovh.net/gentoo-distfiles/"
-    #proxy="http://myproxy.example.net:8080"
-    parallele_emerge="-j4"
-    root_password="changeme"
+#mirror="http://mirror.ovh.net/gentoo-distfiles/"
+#proxy="http://myproxy.example.net:8080"
+parallele_emerge="-j4"
+root_password="changeme"
 
-    [network_install]
-    #network configuration during the installation
-    eth0 dhcp
-    #eth1 static 192.168.42.100/24
-    #route eth1 default gw 192.168.42.254
-    #dns 8.8.8.8
+[network_install]
+#network configuration during the installation
+eth0 dhcp
+#eth1 static 192.168.42.100/24
+#route eth1 default gw 192.168.42.254
+#dns 8.8.8.8
 
-    [network]
-    #network configuration of the installed system
+[network]
+#network configuration of the installed system
 
-    #eth1 static 192.168.69.51/24
-    #route eth1 default gw 192.168.69.1
-    #dns 8.8.8.8
+#eth1 static 192.168.69.51/24
+#route eth1 default gw 192.168.69.1
+#dns 8.8.8.8
 
 
-    [partitionning]
-    #partitions description
+[partitionning]
+#partitions description
 
-    #DISK     SIZE     FS          MOUNT_POINT
-    /dev/sda   120M     ext4        /boot
-    /dev/sda   1G       reiserfs    /
-    /dev/sda   5G       ext4        /home
-    /dev/sda   5G       ext4        /usr
-    /dev/sda   1G       swap
-    /dev/sda   ALL      ext4        /var
+#DISK     SIZE     FS          MOUNT_POINT
+/dev/sda   120M     ext4        /boot
+/dev/sda   1G       reiserfs    /
+/dev/sda   5G       ext4        /home
+/dev/sda   5G       ext4        /usr
+/dev/sda   1G       swap
+/dev/sda   ALL      ext4        /var
 
-    [make.conf]
-    #lines ADDED to the make.conf
+[make.conf]
+#lines ADDED to the make.conf
+MAKEOPTS="-j8"
+ACCEPT_LICENSE="*"
+LINGUAS="en fr"
 
-    MAKEOPTS="-j8"
-    ACCEPT_LICENSE="*"
-    LINGUAS="en fr"
+[packages]
+#list of the packages to install
+    
+net-misc/dhcpcd
+app-editors/vim
+sys-process/htop
+sys-kernel/gentoo-sources
 
-    [packages]
-    #list of the packages to install
+[pre_setup]
+#script executed before anything has started
 
-    net-misc/dhcpcd
-    app-editors/vim
-    sys-process/htop
-    sys-kernel/gentoo-sources
+echo "hello"
 
-    [pre_setup]
-    #script executed before anything has started
+[pre_install_nochroot]
+#shell script executed just before the chrooting
 
-    echo "hello"
+echo "I"
 
-    [pre_install_nochroot]
-    #shell script executed just before the chrooting
+[pre_install_chroot]
+#shell script executed just after the chrooting
 
-    echo "I"
+echo "am"
 
-    [pre_install_chroot]
-    #shell script executed just after the chrooting
+[post_install_chroot]
+#shell script executed after the installation inside the chroot
 
-    echo "am"
+echo "genautoo"
 
-    [post_install_chroot]
-    #shell script executed after the installation inside the chroot
+[post_install_nochroot]
+#shell script executed after the installation outside the chroot
 
-    echo "genautoo"
-
-    [post_install_nochroot]
-    #shell script executed after the installation outside the chroot
-
-    echo "installer"
+echo "installer"
 ```
 The order of the section doesn't matter, and you can split a section, for example:
+```shell
+[global]
+#some global parameters
 
-    [global]
-    #some global parameters
+[partitionning]
+#partitions description
 
-    [partitionning]
-    #partitions description
+#DISK     SIZE     FS          MOUNT_POINT
+/dev/sda   120M     ext4        /boot
+/dev/sda   1G       reiserfs    /
 
-    #DISK     SIZE     FS          MOUNT_POINT
-    /dev/sda   120M     ext4        /boot
-    /dev/sda   1G       reiserfs    /
-
-    [global]
-    #rest of the global parameters
+[global]
+#rest of the global parameters
+```
 
 Any way, there are some examples in the examples directory.
 
