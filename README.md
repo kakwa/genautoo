@@ -161,3 +161,7 @@ Without optional arguments, it takes the installer, the config file, it download
 
 More explanations coming soon...
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kakwa/genautoo/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
