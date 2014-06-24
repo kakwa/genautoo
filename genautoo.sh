@@ -119,7 +119,7 @@ clean(){
 get_base_iso(){
     #function getting the latest stable version of the debian install cd (if not already on the system)
 
-    BASE_URL="http://cdimage.debian.org/debian-cd/current/$ARCH/iso-cd/"
+    BASE_URL="http://cdimage.debian.org/cdimage/archive/6.0.9/$ARCH/iso-cd/"
 
     if [ -z $INPUT_ISO ]
     then
