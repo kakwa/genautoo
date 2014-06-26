@@ -70,16 +70,18 @@ arch_bootloader_install(){
         initrd="boot/$initrd"
     fi
 
-    cat >/boot/grub/grub.conf <<EOF
-default 0
-timeout 3
-#splashimage=($grub_disk,$grub_number)/boot/grub/splash.xpm.gz
+#    cat >/boot/grub/grub.conf <<EOF
+#default 0
+#timeout 3
+##splashimage=($grub_disk,$grub_number)/boot/grub/splash.xpm.gz
+#
+#title Gentoo Linux $kernel 
+#root ($grub_disk,$grub_number)
+#kernel /$kernel root=$root_partition
+#initrd /$initrd
+#EOF
+    grub2-install $boot_disk
+    grub2-mkconfig -o /boot/grub/grub.cfg
 
-title Gentoo Linux $kernel 
-root ($grub_disk,$grub_number)
-kernel /$kernel root=$root_partition
-initrd /$initrd
-EOF
-    grub-install --no-floppy $boot_disk
 }
 
