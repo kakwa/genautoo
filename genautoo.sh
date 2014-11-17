@@ -119,15 +119,16 @@ clean(){
 get_base_iso(){
     #function getting the latest stable version of the debian install cd (if not already on the system)
 
-    BASE_URL="http://cdimage.debian.org/cdimage/archive/6.0.9/$ARCH/iso-cd/"
+    #BASE_URL="http://cdimage.debian.org/cdimage/archive/6.0.10/$ARCH/iso-cd/"
+    BASE_URL="http://distfiles.gentoo.org/releases/$ARCH/current-iso/"
 
     if [ -z $INPUT_ISO ]
     then
-        ISO_NAME=`curl $BASE_URL |grep businesscard.iso|sed "s/.*<a\ href=\"//"|sed "s/\".*//"`
+        ISO_NAME=`curl $BASE_URL | grep -e "install.*minimal.*.iso" | head -n 1|sed "s/.*<a\ href=\"//"|sed "s/\".*//"`
 
-        if ! [ -f $ISO_NAME ]
+        if ! [ -f "`basename $ISO_NAME`" ]
         then
-            common_print_message "getting the lattest (lol) businesscard debian iso"
+            common_print_message "getting the lattest gentoo livecd iso"
             wget $BASE_URL/$ISO_NAME || die "could not get the iso (check your connexion)"
         else
             common_print_message "your already have the lattest debian iso"
@@ -146,47 +147,13 @@ extrac_iso_content(){
     umount $tmp_mount_dir
 }
 
-extract_initrd(){
+extract_squashfs(){
     #function extracting the content of the iso initrd for later modification
     #it also put the pool directory (containing the packages) in the extract directory
     common_print_message "extracting the content of the initrd"
-    tmp_new_initrd_dir_PATH=`find $tmp_new_iso_dir -name "initrd.gz"|grep -v gtk`
-    mv $tmp_new_initrd_dir_PATH $tmp_garbage_dir
-    cd $tmp_garbage_dir 
-    gunzip initrd.gz
-    cd -
-    cd $tmp_new_initrd_dir
-    cpio -id < $tmp_garbage_dir/initrd
-    cd -
-    mv $tmp_new_iso_dir/pool $tmp_new_initrd_dir/
-}
-
-installing_udeb(){
-    #function installing some udebs from the pool directory of the iso
-common_print_message "installing some udeb, and throwing the rest away"
-
-cat >$tmp_new_initrd_dir/install_udeb.sh <<EOF
-#!/bin/sh
-/usr/bin/udpkg -i /pool/main/e/eglibc/*
-/usr/bin/udpkg -i /pool/main/u/util-linux/*
-/usr/bin/udpkg -i /pool/main/r/reiserfsprogs/*
-/usr/bin/udpkg -i /pool/main/e/e2fsprogs/*
-/usr/bin/udpkg -i /pool/main/l/linux-kernel-di-*/*
-/usr/bin/udpkg -i /pool/main//u/util-linux/*
-#/usr/bin/udpkg -i /pool/main/o/openssh/*
-/usr/bin/udpkg -i /pool/main/m/mountmedia/*
-EOF
-
-    chmod 755 $tmp_new_initrd_dir/install_udeb.sh
-    chroot $tmp_new_initrd_dir /install_udeb.sh
-    rm -rf $tmp_new_initrd_dir/install_udeb.sh
-    rm -rf $tmp_new_initrd_dir/pool/
-}
-
-editing_debian_installer(){
-    #this way, we trick the debian installer to poweroff at the end of the install
-    echo "#!/bin/sh" > $tmp_new_initrd_dir/lib/debian-installer/exit-command
-    echo "return 22" >> $tmp_new_initrd_dir/lib/debian-installer/exit-command
+    tmp_new_initrd_dir_PATH=`find $tmp_new_iso_dir -name "image.squashfs"`
+    rmdir $tmp_new_initrd_dir
+    unsquashfs -d $tmp_new_initrd_dir $tmp_new_initrd_dir_PATH
 }
 
 adding_install_scritps(){
@@ -199,14 +166,6 @@ adding_install_scritps(){
     mkdir -p $tmp_new_initrd_dir/config/
     cp -r $CONFIGURATION_FILE $tmp_new_initrd_dir/config/install.cfg
     mv $tmp_new_initrd_dir/installer/lib/arch/$GENTOO_ARCH/*.sh $tmp_new_initrd_dir/installer/lib/arch/
-
-    cd $tmp_new_initrd_dir/lib/debian-installer.d
-   #ln -s ../../installer/install.sh S69gentoo_install
-    echo "#!/bin/sh" >S69gentoo_install
-    echo "/installer/install.sh" >>S69gentoo_install
-    chmod 755 S69gentoo_install
-    rm -f S70menu
-    cd -
 }
 
 copy(){
@@ -216,13 +175,10 @@ copy(){
     fi
 }
 
-create_new_initrd(){
+create_new_squashfs(){
     #function creating the new initrd and putting it inside the iso directory
-    cd $tmp_new_initrd_dir
-    find . | cpio --create --format='newc' >$tmp_garbage_dir/initrd
-    gzip $tmp_garbage_dir/initrd
-    cd -
-    mv $tmp_garbage_dir/initrd.gz $tmp_new_initrd_dir_PATH
+    rm  $tmp_new_initrd_dir_PATH
+    mksquashfs $tmp_new_initrd_dir $tmp_new_initrd_dir_PATH
 }
 
 
@@ -329,10 +285,10 @@ complete_iso_name(){
 
 
 
-set_debian_arch(){
+set_arch(){
 if [ "$GENTOO_ARCH" = "i686" ]
 then
-    ARCH="i386"
+    ARCH="i686"
 else 
     ARCH="$GENTOO_ARCH"
 fi
@@ -413,15 +369,13 @@ fi
 test_mandatory_args
 complete_iso_name
 test_optionnal_args
-set_debian_arch
+set_arch
 get_base_iso
 init_tmp_dir
 extrac_iso_content
-extract_initrd
-installing_udeb
-editing_debian_installer
+extract_squashfs
 adding_install_scritps
-create_new_initrd
+create_new_squashfs
 build_new_iso
 clean
 
