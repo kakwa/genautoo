@@ -163,6 +163,7 @@ adding_install_scritps(){
     common_print_message "adding our shit inside this install cd..."
     cp $STATIC_DIR/bunzip2/bunzip2.$GENTOO_ARCH $tmp_new_initrd_dir/bin/bunzip2
     cp -r $INSTALLER_DIR $tmp_new_initrd_dir/
+    printf 'ttyid=`tty`;\nif [ "$ttyid" == "/dev/tty1" ]\nthen\n\t/mnt/livecd/installer/install.sh\n\treboot\nfi\n' >>$tmp_new_initrd_dir/root/.bashrc
     mkdir -p $tmp_new_initrd_dir/config/
     cp -r $CONFIGURATION_FILE $tmp_new_initrd_dir/config/install.cfg
     mv $tmp_new_initrd_dir/installer/lib/arch/$GENTOO_ARCH/*.sh $tmp_new_initrd_dir/installer/lib/arch/
@@ -185,14 +186,12 @@ create_new_squashfs(){
 build_new_iso(){
     #funtion building the new iso
     common_print_message "making the new iso"
-    sed -i "s/timeout.*/timeout 1/" $tmp_new_iso_dir/isolinux/isolinux.cfg
+    sed -i "s/^timeout.*/timeout 1/" $tmp_new_iso_dir/isolinux/isolinux.cfg
+    sed -i "s/^ontimeout.*/ontimeout gentoo/" $tmp_new_iso_dir/isolinux/isolinux.cfg
+    sed -i "s/dokeymap/nokeymap nodhcp/" $tmp_new_iso_dir/isolinux/isolinux.cfg
     cp $STATIC_DIR/isohdpfx.bin $tmp_new_iso_dir/
-#    mkisofs -r -T -J -V "Custom Debian Build" -b isolinux/isolinux.bin \
-#    -c isolinux/boot.cat -no-emul-boot -boot-load-size 4  -boot-info-table \
-#    -o debian_custom_install_`date +%F-%H%M%S`.iso  $tmp_new_iso_dir
-     #ISO_NAME="genautoo_install_`date +%F-%H%M%S`.iso"
 
-     xorriso -as mkisofs \
+    xorriso -as mkisofs \
          -iso-level 3 \
          -full-iso9660-filenames \
          -volid "Genautoo" \

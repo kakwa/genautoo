@@ -6,10 +6,10 @@ cd `dirname $0`
 . ./conf/global.cfg
 
 #detect the hardware (debian stuff)
-/bin/hw-detect
+#/bin/hw-detect
 
 #probe the necessary modules
-depmod -a
+#depmod -a
 
 
 #if we specify another file in the first argument

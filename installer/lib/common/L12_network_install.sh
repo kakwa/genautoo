@@ -29,7 +29,7 @@ network_install_handler(){
         #sub-treatement for a dhcp configuration
         if [ "$arg_2" = "dhcp" ]
         then 
-            udhcpc $arg_1
+            dhcpcd $arg_1
 
         #sub-treatement for a static configuration
         elif [ "$arg_2" = "static" ]
