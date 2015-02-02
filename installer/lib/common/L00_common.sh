@@ -4,9 +4,9 @@ common_set_proxy(){
     #if specified, we set the proxy
     if ! [ -z "$proxy" ]
     then
-        export http_proxy=$proxy
-        export ftp_proxy=$proxy
-        export https_proxy=$proxy
+        export http_proxy="$proxy"
+        export ftp_proxy="$proxy"
+        export https_proxy="$proxy"
     fi
 }
 
