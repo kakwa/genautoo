@@ -1,5 +1,7 @@
 # Genautoo: an automated installer for gentoo
 
+[![Join the chat at https://gitter.im/kakwa/genautoo](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kakwa/genautoo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The goal of Genautoo is to install automatically Gentoo/Linux by customizing a single file.
 
 ## License
